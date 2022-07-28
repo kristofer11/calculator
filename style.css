@@ -84,3 +84,9 @@ h1 {
     font-family: 'Chakra Petch', sans-serif;
     color: black;
 }
+
+.footer {
+    display: flex;
+    justify-content: flex-start;
+    width: 300px;
+}
