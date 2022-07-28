@@ -7,11 +7,12 @@
     <title>Calculator</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
     
     <div class="header">
-        <h1 class="header">Calculator</h1>
+        <h1 class="header">This is a Calculator</h1>
     </div>
 
     <div class="calc-container">
@@ -104,10 +105,12 @@
                 clearOutput();
             } else if (operator.textContent === '+' || operator.textContent === '-' || operator.textContent === '*' || operator.textContent === '/'){
                 num2.textContent += char;
-                value2 = num2.textContent;   
+                value2 = num2.textContent;  
+                decimal.removeAttribute('onclick'); 
             } else if (!operator.textContent) {     
                 num1.textContent += char;
                 value1 = num1.textContent
+                decimal.removeAttribute('onclick'); 
             } else {
                 return
             };

@@ -5,8 +5,14 @@ body {
     align-items: center;
 }
 
+.header {
+    width: 300px;
+}
+
 h1 {
     font-size: 55px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
 }
 
 .calc-container {
@@ -15,7 +21,7 @@ h1 {
     border: 5px solid rgb(158, 40, 32);
     border-radius: 8px;
     background-color:rgb(32, 91, 158);
-    font-family: 'IBM Plex Mono', monospace;
+
 }
 
 .output {
@@ -24,7 +30,7 @@ h1 {
     border: 2px solid black;
     margin: 5px;
     border-radius: 8px;
-    background-color: wheat;
+    background-color: rgb(172, 161, 161);
 }
 
 .buttons {
@@ -61,17 +67,20 @@ h1 {
 }
 
 .clear {
-    font-size: 29px !important;
+    font-size: 22px !important;
 }
 
 .operation-display {
-    font-size: 33px;
-    color: black;
-    margin: 
+    font-size: 22px;
+    color: navy;
+    font-family: 'Chakra Petch', sans-serif;
 }
 
 .answer {
-    font-size: 55px;
+    font-size: 66px;
     text-align: right;
     margin-right: 10px;
+    margin-bottom: 10px;
+    font-family: 'Chakra Petch', sans-serif;
+    color: black;
 }
