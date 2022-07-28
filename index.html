@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <div class="header">
+        <h1 class="header">Calculator</h1>
+    </div>
+
+    <div class="calc-container">
+        <div id="output" class="output">
+            <div class="operation-display"></div>
+            <div class="answer"></div>
+        </div>
+
+        <div class="buttons">
+            <div class="num-buttons">
+                <button class="decimal" onclick="decimalToDisplay(`.`)">.</button>
+                <button class="zero" onclick="toDisplay(0)">0</button>
+                <button class="enter" onclick="operate()">ENTER</button>
+                <button class="one" onclick="toDisplay(1)">1</button>
+                <button class="two" onclick="toDisplay(2)">2</button>
+                <button class="three" onclick="toDisplay(3)">3</button>
+                <button class="four" onclick="toDisplay(4)">4</button>
+                <button class="five" onclick="toDisplay(5)">5</button>
+                <button class="six" onclick="toDisplay(6)">6</button>
+                <button class="seven" onclick="toDisplay(7)">7</button>
+                <button class="eight" onclick="toDisplay(8)">8</button>
+                <button class="nine" onclick="toDisplay(9)">9</button>
+            </div>
+
+            <div class="operator-buttons">
+                <button class="clear" onclick="clearOutput()">CLEAR</button>
+                <button class="add" onclick="setOperator('add')">+</button>
+                <button class="subtract" onclick="setOperator('subtract')">-</button>
+                <button class="multiply" onclick="setOperator('multiply')">*</button>
+                <button class="divide" onclick="setOperator('divide')"><span>&#247</span></button>
+                
+            </div>
+        </div>
+        <div class="enter-button"></div>
+    </div>
+
+
+    <script>
+        let operationDisplay = document.querySelector('.operation-display');
+        let answerDisplay = document.querySelector('.answer');
+        answerDisplay.textContent = '';
+        let decimal = document.querySelector('.decimal');
+        let displayValue;
+        let value1;
+        let value2;
+        let currentOperator;
+        let answer;
+
+        //functions to carry out the four basic operations using two given numbers.
+        function add(num1, num2) {
+            return num1 + num2;
+        };
+        function subtract(num1, num2) {
+            return num1 - num2
+        };
+        function multiply(num1, num2) {
+            return num1 * num2
+        };
+        function divide(num1, num2) {
+            return num1 / num2
+        };
+        function operate(operator, num1, num2) {
+            return operator(num1, num2)
+        };
+
+        //Display the numbers when user clicks buttons
+        function toDisplay(number) {
+                operationDisplay.textContent += number;
+                displayValue = operationDisplay.textContent;
+        };
+
+        //Display decimal when user clicks it, then disable decimal button
+        function decimalToDisplay(char) {
+            operationDisplay.textContent += char;
+            displayValue = operationDisplay.textContent;
+            //decimal disabled
+            decimal.removeAttribute('onclick');
+        }
+
+        //Store the operator when user selects one.
+        function setOperator(operator) {
+            currentOperator = operator;
+            value1 = displayValue;
+            displayValue = 0;
+            if (currentOperator === 'add') {
+                operationDisplay.textContent += '+';
+            } else if (currentOperator === 'subtract') {
+                operationDisplay.textContent += '-';
+            } else if (currentOperator === 'multiply') {
+                operationDisplay.textContent += '*';
+            } else {
+                operationDisplay.textContent += '/';
+            };    
+            //Give the decimal button back after operator selection
+            decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
+        }
+
+        //Run the proper operation and display the answer
+        function operate() {
+            if (currentOperator === 'add') {
+                answer = add(parseFloat(value1), parseFloat(value2.textContent));
+                answerDisplay.textContent = answer;
+                //Give the decimal button back after operation is performed.
+                decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
+            } else if (currentOperator === 'subtract'){
+                answer = subtract(parseFloat(value1), parseFloat(operationDisplay.textContent));
+                answerDisplay.textContent = answer; 
+                //Give the decimal button back after operation is performed.
+                decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
+            } else if (currentOperator === 'multiply'){
+                answer = multiply(parseFloat(value1), parseFloat(operationDisplay.textContent));
+                answerDisplay.textContent = answer; 
+                //Give the decimal button back after operation is performed.
+                decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
+            } else if (currentOperator === 'divide'){
+                answer = divide(parseFloat(value1), parseFloat(operationDisplay.textContent));
+                answerDisplay.textContent = answer; 
+                //Give the decimal button back after operation is performed.
+                decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
+            } else return;
+        };
+
+        // clear the display and zero out stored values when 'clear' button is clicked
+        function clearOutput() {
+            operationDisplay.textContent = "";
+            answerDisplay.textContent = "";
+            anwswer = 0;
+            value1 = 0;
+        }
+
+
+        //displaly the first number(s) clicked
+        //when operator is clicked -- clear display, store the operator and store the first value
+        //display the second number(s) clicked
+        //When enter is clicked, run the proper operator function and display the returned value
+        //After answer is displayed, if any button is clicked - clear
+    </script>
+</body>
+</html>
