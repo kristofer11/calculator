@@ -15,7 +15,11 @@
 
     <div class="calc-container">
         <div id="output" class="output">
-            <div class="operation-display"></div>
+            <div class="operation-display">
+                <span class="num1"></span>
+                <span class="operator"></span>
+                <span class="num2"></span>
+            </div>
             <div class="answer"></div>
         </div>
 
@@ -49,7 +53,9 @@
 
 
     <script>
-        let operationDisplay = document.querySelector('.operation-display');
+        let num1 = document.querySelector('.num1');
+        let operator = document.querySelector('.operator');
+        let num2 = document.querySelector('.num2');
         let answerDisplay = document.querySelector('.answer');
         answerDisplay.textContent = '';
         let decimal = document.querySelector('.decimal');
@@ -78,31 +84,50 @@
 
         //Display the numbers when user clicks buttons
         function toDisplay(number) {
-                operationDisplay.textContent += number;
-                displayValue = operationDisplay.textContent;
-        };
+            if (answerDisplay.textContent) {
+                clearOutput();
+            } else if (operator.textContent === '+' || operator.textContent === '-' || operator.textContent === '*' || operator.textContent === '/'){
+                num2.textContent += number;
+                value2 = num2.textContent;   
+            } else if (!operator.textContent) {     
+                num1.textContent += number;
+                value1 = num1.textContent
+            } else {
+                return
+            };
+        }
 
         //Display decimal when user clicks it, then disable decimal button
         function decimalToDisplay(char) {
-            operationDisplay.textContent += char;
-            displayValue = operationDisplay.textContent;
-            //decimal disabled
-            decimal.removeAttribute('onclick');
+            if (answerDisplay.textContent) {
+                clearOutput();
+            } else if (operator.textContent === '+' || operator.textContent === '-' || operator.textContent === '*' || operator.textContent === '/'){
+                num2.textContent += char;
+                value2 = num2.textContent;   
+            } else if (!operator.textContent) {     
+                num1.textContent += char;
+                value1 = num1.textContent
+            } else {
+                return
+            };
         }
 
         //Store the operator when user selects one.
-        function setOperator(operator) {
-            currentOperator = operator;
-            value1 = displayValue;
-            displayValue = 0;
+        function setOperator(symbol) {
+            if (operator.textContent) {
+                return            
+            };
+            currentOperator = symbol;
+            value1 = num1;
+            // num2 = 0;
             if (currentOperator === 'add') {
-                operationDisplay.textContent += '+';
+                operator.textContent = '+';
             } else if (currentOperator === 'subtract') {
-                operationDisplay.textContent += '-';
+                operator.textContent += '-';
             } else if (currentOperator === 'multiply') {
-                operationDisplay.textContent += '*';
+                operator.textContent += '*';
             } else {
-                operationDisplay.textContent += '/';
+                operator.textContent += '/';
             };    
             //Give the decimal button back after operator selection
             decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
@@ -111,22 +136,22 @@
         //Run the proper operation and display the answer
         function operate() {
             if (currentOperator === 'add') {
-                answer = add(parseFloat(value1), parseFloat(value2.textContent));
+                answer = add(parseFloat(num1.textContent), parseFloat(num2.textContent));
                 answerDisplay.textContent = answer;
                 //Give the decimal button back after operation is performed.
                 decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
             } else if (currentOperator === 'subtract'){
-                answer = subtract(parseFloat(value1), parseFloat(operationDisplay.textContent));
+                answer = subtract(parseFloat(num1.textContent), parseFloat(num2.textContent));
                 answerDisplay.textContent = answer; 
                 //Give the decimal button back after operation is performed.
                 decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
             } else if (currentOperator === 'multiply'){
-                answer = multiply(parseFloat(value1), parseFloat(operationDisplay.textContent));
+                answer = multiply(parseFloat(num1.textContent), parseFloat(num2.textContent));
                 answerDisplay.textContent = answer; 
                 //Give the decimal button back after operation is performed.
                 decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
             } else if (currentOperator === 'divide'){
-                answer = divide(parseFloat(value1), parseFloat(operationDisplay.textContent));
+                answer = divide(parseFloat(num1.textContent), parseFloat(num2.textContent));
                 answerDisplay.textContent = answer; 
                 //Give the decimal button back after operation is performed.
                 decimal.setAttribute('onclick', 'decimalToDisplay(`.`)');
@@ -135,7 +160,9 @@
 
         // clear the display and zero out stored values when 'clear' button is clicked
         function clearOutput() {
-            operationDisplay.textContent = "";
+            num1.textContent = "";
+            num2.textContent = "";
+            operator.textContent = "";
             answerDisplay.textContent = "";
             anwswer = 0;
             value1 = 0;
